@@ -1,8 +1,7 @@
-// const { program } = require('commander');
-import { program } from 'commander'; 
-import WalletService from './services/WalletService';
+import { program } from 'commander';
+import { createWallets, fetchWalletsByGroup } from './commands';
+import 'dotenv/config';
 
-const ws = new WalletService();
 program
   .name('ensemble')
   .description('CLI to some ensemble service')
@@ -12,14 +11,22 @@ program.command('create-wallets')
   .description('Create new wallets')
   .argument('<number>', 'number of wallets to create')
   .action((numberOfWallets) => {
-    ws.createWallets(numberOfWallets);
+    createWallets(numberOfWallets);
   });
+
+  program.command('fetch-wallets')
+  .description('Fetch wallets by group')
+  .argument('<string>', 'fetch wallets by group id')
+  .action((groupId) => {
+    fetchWalletsByGroup(groupId);
+  });
+
 
   program.command('onboard')
   .description('onboard group of wallets')
   .argument('<string>', 'group id')
   .action((numberOfWallets) => {
-    ws.createWallets(numberOfWallets);
+    // ws.createWallets(numberOfWallets);
   });
 
 program.parse();
