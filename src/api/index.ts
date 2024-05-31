@@ -1,2 +1,2 @@
-export { fetchCommandsTypes, startCommand } from './commands';
-export { createWallets, fetchWalletsByGroup } from './wallets';
+export { fetchCommandsTypes, fetchCommandDetails, fetchCommands, createCommand, attachWallets } from './commands';
+export { createWallets, fetchWalletsByGroup, fetchWalletsGroups } from './wallets';

@@ -27,3 +27,14 @@ export  async function fetchWalletsByGroup(group: string) {
       errorHandler(error);
   }
 }
+
+export  async function fetchWalletsGroups() {
+  const url = `${baseUrl}/wallets/group/`;
+
+  try {
+      const response = await axios.get(url);
+      console.log('Success:', response.data);
+  } catch (error) {
+      errorHandler(error);
+  }
+}

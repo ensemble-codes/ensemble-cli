@@ -8,7 +8,6 @@ export  async function fetchCommandsTypes() {
   const url = `${baseUrl}/commands/types`;
   try {
       const response = await axios.get(url);
-      // console.log('List of available command:');
       for (const command of response.data) { 
         console.log(`${command.name} - ${command.description}`)
       }
@@ -17,17 +16,63 @@ export  async function fetchCommandsTypes() {
   }
 }
 
-export async function startCommand(name: string, kpi: string, network: string) {
+export  async function fetchCommandDetails(name: string) {
+  const url = `${baseUrl}/commands/types/${name}`;
+  try {
+      const response = await axios.get(url);
+      const command = response.data
+      console.log(`${command.name} - ${command.description}`)
+      console.log(`template: ${JSON.stringify(command.template)}`)
+      // console.log('Success:', JSON.stringify(response.data))
+  } catch (error) {
+      errorHandler(error);
+  }
+}
+
+export  async function fetchCommands() {
+  const url = `${baseUrl}/commands`;
+  try {
+      const response = await axios.get(url);
+      for (const command of response.data) { 
+        console.log(`${command.name} with id ${command._id}. status: ${command.isActive ? 'active' : 'inactive'}`)
+      }
+  } catch (error) {
+      errorHandler(error);
+  }
+}
+
+export async function createCommand(name: string, params: string, network: string) {
   const url = `${baseUrl}/commands`;
 
   const data = {
     name,
-    kpi,
+    params,
     network,
   };
   try {
       const response = await axios.post(url, data);
-      console.log('Success:', response.data)
+      const command = response.data
+      console.log(`Created ${command.name} command with id ${command._id})`)
+      console.log(`goal is configured to: ${JSON.stringify(command.kpi.func)}`)
+  } catch (error) {
+      errorHandler(error);
+  }
+}
+
+export async function attachWallets(commandId: string, groupId: string) {
+  const url = `${baseUrl}/commands/${commandId}/wallets`;
+
+  const data = {
+    commandId,
+    groupId,
+  };
+  try {
+      const response = await axios.put(url, data);
+      const command = response.data
+      console.log(`Created ${command.name} command with id ${command._id})`)
+      console.log(`goal is configured to: ${command.kpi.func}`)
+      // TODO: change how we show the kpi
+      console.log(command.kpi.func)
   } catch (error) {
       errorHandler(error);
   }
