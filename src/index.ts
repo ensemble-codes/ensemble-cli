@@ -57,7 +57,7 @@ commands.command('ls')
 
 commands.command('create')
   .argument('<name>', 'command name to start')
-  .argument('<params>', 'command kpi to achieve')
+  .argument('<params>', 'command goal to achieve')
   .option('--network <network>', 'command network to use')
   .description('Start a command')
   .action((name, params, options) => {
@@ -71,25 +71,5 @@ commands.command('attach')
   .action((commandId, groupId) => {
     attachWallets(commandId, groupId)
   });
-
-const triggers = program.command('triggers')
-  .description('displaying command triggers')
-
-triggers.command('ls')
-  .description('List all available triggers')
-  .action(() => {
-    console.log('ls');
-  });
-
-program.command('status')
-  .description('viewing the commands status')
-
-
-// program.command('onboard')
-// .description('onboard group of wallets')
-// .argument('<string>', 'group id')
-// .action((numberOfWallets) => {
-//   // ws.createWallets(numberOfWallets);
-// });
 
 program.parse();

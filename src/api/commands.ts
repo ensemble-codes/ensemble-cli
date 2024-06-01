@@ -53,7 +53,7 @@ export async function createCommand(name: string, params: string, network: strin
       const response = await axios.post(url, data);
       const command = response.data
       console.log(`Created ${command.name} command with id ${command._id})`)
-      console.log(`goal is configured to: ${JSON.stringify(command.kpi.func)}`)
+      console.log(`goal is configured to: ${JSON.stringify(command.goal.func)}`)
   } catch (error) {
       errorHandler(error);
   }
@@ -70,9 +70,9 @@ export async function attachWallets(commandId: string, groupId: string) {
       const response = await axios.put(url, data);
       const command = response.data
       console.log(`Created ${command.name} command with id ${command._id})`)
-      console.log(`goal is configured to: ${command.kpi.func}`)
-      // TODO: change how we show the kpi
-      console.log(command.kpi.func)
+      console.log(`goal is configured to: ${command.goal.func}`)
+      // TODO: we want to show the goal as an expression
+      console.log(command.goal.func)
   } catch (error) {
       errorHandler(error);
   }
