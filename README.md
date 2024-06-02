@@ -20,7 +20,7 @@ With Ensemble, the user defines its on-chain goal by using Ensemble's declerativ
 
 ## Choose a command
 
-List the available commands with
+### List the available commands with
 
 ```bash
 ./ensemble.sh commands types
@@ -32,13 +32,25 @@ token-activity - Generate token activity
 game-activity - Generate game activity
 ```
 
-
-Get command details
+### Get command details
 
 ```bash
  ./ensemble.sh commands types balance-maintain
 
- ```
+ maintain-balance - Maintain account balances in a certain range
+goal template: [{"in_range()":[{"balance_of()":["$contract_address","$token_address"]},"$min_balance","$max_balance"],"target:":"$account_address"}]
+```
+
+Goal template is the goal function without the parameters.
+
+### Create a command
+
+``` bash
+./ensemble.sh commands create maintain-balance '{"contract_address": "0xC2A5B2e74B0eE9B943Ef306934dDDFb9f0AD8036", "token_address": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238", "min_balance": 100, "max_balance": 1000, "target_address": "0xC7e7342a7a9215b2c5eCCa8fAA616Da369F06286"}' --network sepolia
+
+Created maintain-balance command with id 665cf41d3c1bbf6e84a42bd4)
+goal is configured to: [{"in_range()":[{"balance_of()":["0xC2A5B2e74B0eE9B943Ef306934dDDFb9f0AD8036","0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238"]},"100","1000"],"target:":"0xC7e7342a7a9215b2c5eCCa8fAA616Da369F06286"}]
+```
 
 ## Command Documentation
 
@@ -57,3 +69,19 @@ Get command details
      - `token_address`: The Ethereum address of the token associated with the game.
      - `min_volume`: The minimum volume of tokens required for the activity to be considered valid.
    - **Network**: `op_sepolia` - This specifies the blockchain network on which the command will be executed.
+3. **Balance Maintain Command**
+   - **Command**: `./ensemble.sh commands create maintain-balance '{"contract_address": "0xYourContractAddress", "token_address": "0xYourTokenAddress", "min_balance": 100, "max_balance": 1000, "target_address": "0xYourTargetAddress"}' --network yourNetwork`
+   - **Description**: This command is used to maintain the balance of a specific token within a defined range for a particular account.
+   - **Parameters**:
+     - `contract_address`: The Ethereum address of the contract.
+     - `token_address`: The Ethereum address of the token.
+ 3. **Balance Maintain Command**
+    - **Command**: `./ensemble.sh commands create maintain-balance '{"contract_address": "0xYourContractAddress", "token_address": "0xYourTokenAddress", "min_balance": 100, "max_balance": 1000, "target_address": "0xYourTargetAddress"}' --network yourNetwork`
+    - **Description**: This command is used to maintain the balance of a specific token within a defined range for a particular account.
+    - **Parameters**:
+      - `contract_address`: The Ethereum address of the contract.
+      - `token_address`: The Ethereum address of the token.
+      - `min_balance`: The minimum balance threshold.
+      - `max_balance`: The maximum balance threshold.
+      - `target_address`: The Ethereum address of the target account where the balance is deposited or withdrawn
+    - **Network**: This specifies the blockchain network on which the command will be executed.

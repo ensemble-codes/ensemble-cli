@@ -22,7 +22,7 @@ export  async function fetchCommandDetails(name: string) {
       const response = await axios.get(url);
       const command = response.data
       console.log(`${command.name} - ${command.description}`)
-      console.log(`template: ${JSON.stringify(command.template)}`)
+      console.log(`goal template: ${JSON.stringify(command.template)}`)
       // console.log('Success:', JSON.stringify(response.data))
   } catch (error) {
       errorHandler(error);
