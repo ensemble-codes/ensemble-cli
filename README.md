@@ -75,13 +75,7 @@ goal is configured to: [{"in_range()":[{"balance_of()":["0xC2A5B2e74B0eE9B943Ef3
    - **Parameters**:
      - `contract_address`: The Ethereum address of the contract.
      - `token_address`: The Ethereum address of the token.
- 3. **Balance Maintain Command**
-    - **Command**: `./ensemble.sh commands create maintain-balance '{"contract_address": "0xYourContractAddress", "token_address": "0xYourTokenAddress", "min_balance": 100, "max_balance": 1000, "target_address": "0xYourTargetAddress"}' --network yourNetwork`
-    - **Description**: This command is used to maintain the balance of a specific token within a defined range for a particular account.
-    - **Parameters**:
-      - `contract_address`: The Ethereum address of the contract.
-      - `token_address`: The Ethereum address of the token.
-      - `min_balance`: The minimum balance threshold.
-      - `max_balance`: The maximum balance threshold.
-      - `target_address`: The Ethereum address of the target account where the balance is deposited or withdrawn
-    - **Network**: This specifies the blockchain network on which the command will be executed.
+     - `min_balance`: The minimum balance threshold.
+     - `max_balance`: The maximum balance threshold.
+     - `target_address`: The Ethereum address of the target account where the balance is deposited or withdrawn
+   - **Network**: This specifies the blockchain network on which the command will be executed.
