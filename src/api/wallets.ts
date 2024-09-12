@@ -17,6 +17,17 @@ export async function createWallets(numberOfWallets: number) {
     }
 }
 
+export async function createWallet() {
+  const url = `${baseUrl}/wallets/`;
+    try {
+      const response = await axios.post(url);
+      console.log('Success:', response.data);  
+    } catch (error) {
+      errorHandler(error);
+    }
+}
+
+
 export  async function fetchWalletsByGroup(group: string) {
   const url = `${baseUrl}/wallets/group/${group}`;
 

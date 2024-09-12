@@ -1,6 +1,10 @@
 # Ensemble CLI
 
-This repo contains the CLI for the Ensemble protocol. It it used to start and manage your commands by configuring goals, wallets and rewards.
+## About
+
+Ensemble makes it easy to create and securely execute automated workflows that operate over multiple smart contracts and networks.
+
+Ensemble CLI gives you access to Ensemble automations. Using the CLIt the developer can build, configure and execute their automations.
 
 ## Setup
 
@@ -14,68 +18,77 @@ Run the ensemble-service locally or connect to the service via the API. Please r
 
 ## Getting Started
 
-### What are commands
+Let's create and run our first automation. We can use any workflow from our samples.
 
-With Ensemble, the user defines its on-chain goal by using Ensemble's declerative language. Commands expressions in this language that are specially dedicated for a certain use case.
+## Prerequisites
 
-## Choose a command
+Make sure that the Ensemble engine and API service are running.
 
-### List the available commands with
+### Create wallet
 
-```bash
-./ensemble.sh commands types
-
-loadtest - Run a network load test
-gas-manipulation - Maintains the gas price in the defined range
-balance-maintain - Maintains the account balance in the defined range
-token-activity - Generate token activity
-game-activity - Generate game activity
-```
-
-### Get command details
-
-```bash
- ./ensemble.sh commands types balance-maintain
-
- maintain-balance - Maintain account balances in a certain range
-goal template: [{"in_range()":[{"balance_of()":["$contract_address","$token_address"]},"$min_balance","$max_balance"],"target:":"$account_address"}]
-```
-
-Goal template is the goal function without the parameters.
-
-### Create a command
+Create the workflow wallet that will be operated in the workflow
 
 ``` bash
-./ensemble.sh commands create maintain-balance '{"contract_address": "0xC2A5B2e74B0eE9B943Ef306934dDDFb9f0AD8036", "token_address": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238", "min_balance": 100, "max_balance": 1000, "target_address": "0xC7e7342a7a9215b2c5eCCa8fAA616Da369F06286"}' --network sepolia
+ ./ensemble.sh wallets create
+ WORKFLOW_WALLET= #put wallet address 
+ ```
 
-Created maintain-balance command with id 665cf41d3c1bbf6e84a42bd4)
-goal is configured to: [{"in_range()":[{"balance_of()":["0xC2A5B2e74B0eE9B943Ef306934dDDFb9f0AD8036","0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238"]},"100","1000"],"target:":"0xC7e7342a7a9215b2c5eCCa8fAA616Da369F06286"}]
+### Upload the ABIs used
+
+```bash
+ ./ensemble.sh abi upload erc20.abi  ./samples/erc20.abi.json
 ```
 
-## Command Documentation
+Creatung a workflow by chosing ready workflow from the samples folder
 
-1. **Gas Manipulation Command**
-   - **Command**: `./ensemble.sh create gas-manipulation '{"max_gas_price": 10}' --network fuse`
-   - **Description**: This command is used to set the maximum gas price for transactions.
-   - **Parameters**:
-     - `max_gas_price`: The maximum price of gas you are willing to pay per unit (in Gwei).
-   - **Network**: `fuse` - This specifies the blockchain network on which the command will be executed.
+``` bash
+./ensemble.sh workflows create ./samples/transfer.workflow.yaml
+WORKFLOW_ID= #put workflow id here
+```
 
-2. **Game Activity Command**
-   - **Command**: `./ensemble.sh commands create game-activity '{"contract_address": "10xE3F85aAd0c8DD7337427B9dF5d0fB741d65EEEB50", "token_address": "0xA8d1B5bf7568F96F5598d1736Fa5c55A9B1ACD60", "min_volume": "100"}' --network op_sepolia`
-   - **Description**: This command is used to create or update game activity settings related to a specific contract.
-   - **Parameters**:
-     - `contract_address`: The Ethereum address of the contract.
-     - `token_address`: The Ethereum address of the token associated with the game.
-     - `min_volume`: The minimum volume of tokens required for the activity to be considered valid.
-   - **Network**: `op_sepolia` - This specifies the blockchain network on which the command will be executed.
-3. **Balance Maintain Command**
-   - **Command**: `./ensemble.sh commands create maintain-balance '{"contract_address": "0xYourContractAddress", "token_address": "0xYourTokenAddress", "min_balance": 100, "max_balance": 1000, "target_address": "0xYourTargetAddress"}' --network yourNetwork`
-   - **Description**: This command is used to maintain the balance of a specific token within a defined range for a particular account.
-   - **Parameters**:
-     - `contract_address`: The Ethereum address of the contract.
-     - `token_address`: The Ethereum address of the token.
-     - `min_balance`: The minimum balance threshold.
-     - `max_balance`: The maximum balance threshold.
-     - `target_address`: The Ethereum address of the target account where the balance is deposited or withdrawn
-   - **Network**: This specifies the blockchain network on which the command will be executed.
+Create the workflow wallet that will be operated in the workflow
+
+### Create workflow
+
+Chosing a ready workflow from the samples
+
+``` bash
+./ensemble.sh workflows create ./samples/transfer.workflow.yaml
+WORKFLOW_ID= #put workflow id here
+```
+
+### Configure workflow
+
+By configuring a command we create a workflow instance object
+
+```bash
+./ensemble.sh instances create $WORKFLOW_ID  -p '{"WORKFLOW_WALLET": "<WORKFLOW_WALLET_ADDRESS>", "WORKFLOW_NETWORK": "<network>", "<WORKFLOW_WALLET_ADDRESS>": "TOKEN_ADDRESS", "<TOKEN_ADDRESS>": "0x44661D7EfD4CAD7D8290Ebe704b747F267FB13C3", "PERIODIC_TRANSFER_AMOUNT": "1000000000000000000"}'
+WORKFLOW_INSTANCE_ID= #put id here
+```
+
+### Start a workflow
+
+Start and the workflow
+
+``` bash
+./ensemble.sh instances start $WORKFLOW_INSTANCE_ID
+```
+
+## More Workflow Examples
+
+./ensemble.sh workflows create ./samples/dca.workflow.yaml
+WORKFLOW_ID=
+
+### FUSE
+
+./ensemble.sh instances create $WORKFLOW_ID  -p '{"BUY_TOKEN": "0x44661D7EfD4CAD7D8290Ebe704b747F267FB13C3", "BUY_AMOUNT": "100", "SELL_TOKEN": "0x44661D7EfD4CAD7D8290Ebe704b747F267FB13C3", "DEX_ADDRESS": "0x44661D7EfD4CAD7D8290Ebe704b747F267FB13C3", "WORKFLOW_WALLET": "0x44661D7EfD4CAD7D8290Ebe704b747F267FB13C3", "MIN_ALLOWANCE_AMOUNT": "10000"}'
+
+### Sepolia
+
+./ensemble.sh instances create $WORKFLOW_ID  -p '{"BUY_TOKEN": "0x34d5Feb1C239714f17A295330426B4E8B44C90a8", "BUY_AMOUNT": "100", "SELL_TOKEN": "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14", "DEX_ADDRESS": "0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD", "WORKFLOW_WALLET": "0x2c37691967de1A1E4eE68ae4D745059720A6dB7F", "MIN_ALLOWANCE_AMOUNT": "10000"}'
+
+### Base Sepolia
+
+./ensemble.sh instances create $WORKFLOW_ID  -p '{"BUY_TOKEN": "0x036CbD53842c5426634e7929541eC2318f3dCF7e", "SELL_AMOUNT": "100", "SELL_TOKEN": "0x4200000000000000000000000000000000000006", "DEX_ADDRESS": "0x050E797f3625EC8785265e1d9BDd4799b97528A1", "WORKFLOW_WALLET": "0x2c37691967de1A1E4eE68ae4D745059720A6dB7F", "MIN_ALLOWANCE_AMOUNT": "100000000000"}'
+
+WORKFLOW_INSTANCE_ID=
