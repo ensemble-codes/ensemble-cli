@@ -16,6 +16,10 @@ npm install
 
 Run the ensemble-engine locally or connect to the engine via the API. Please refer to the [ensemble-engine README](https://github.com/ensemble-codes/ensemble-engine) for more information. Make sure that the engine is running and that the `.env` file is set up correctly.
 
+```bash
+cp .env.sample .env
+```
+
 ## Getting Started
 
 Let's create and run our first automation. We can use any workflow from our samples.
