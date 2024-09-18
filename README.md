@@ -34,7 +34,7 @@ Create the workflow wallet that will be operated in the workflow
 
 ``` bash
  ./ensemble.sh wallets create
- WORKFLOW_WALLET= #put wallet address 
+ WORKFLOW_WALLET= #put here the received wallet address 
  ```
 
 ### Upload the ABIs used
@@ -51,7 +51,7 @@ Choose a ready workflow from the samples
 
 ``` bash
 ./ensemble.sh workflows create ./samples/transfer.workflow.yaml
-WORKFLOW_ID= #put workflow id here
+WORKFLOW_ID= #put here the received workflow id
 ```
 
 ### Configure workflow
@@ -60,7 +60,7 @@ By configuring a command we create a workflow instance object
 
 ```bash
 ./ensemble.sh instances create $WORKFLOW_ID  -p '{"WORKFLOW_WALLET": "<WORKFLOW_WALLET_ADDRESS>", "WORKFLOW_NETWORK": "<network>", "<WORKFLOW_WALLET_ADDRESS>": "TOKEN_ADDRESS", "<TOKEN_ADDRESS>": "0x44661D7EfD4CAD7D8290Ebe704b747F267FB13C3", "PERIODIC_TRANSFER_AMOUNT": "1000000000000000000"}'
-WORKFLOW_INSTANCE_ID= #put id here
+WORKFLOW_INSTANCE_ID= #put here the received id
 ```
 
 ### Start a workflow
@@ -75,6 +75,7 @@ Start the workflow
 
 ``` bash
 ./ensemble.sh workflows create ./samples/dca.workflow.yaml
+WORKFLOW_ID= #put here the received workflow id
 ```
 
 ### FUSE
