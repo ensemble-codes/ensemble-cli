@@ -2,6 +2,8 @@
 
 ## About
 
+Ensemble CLI is a powerful command-line interface designed to facilitate the creation, configuration, and execution of automated workflows that interact with various smart contracts across multiple networks. It simplifies the process of managing and deploying these workflows, providing developers with the tools needed to efficiently operate within the Ensemble ecosystem. Through the CLI, users can generate new wallets, manage smart contract ABIs, and deploy or trigger workflows, making it an essential tool for developers looking to leverage decentralized technologies.
+
 Ensemble makes it easy to create and securely execute automated workflows that operate over multiple smart contracts and networks.
 
 Ensemble CLI gives you access to Ensemble automations. Using the CLIt the developer can build, configure and execute their automations.

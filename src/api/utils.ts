@@ -26,6 +26,11 @@ axios.interceptors.request.use(request => {
   console.log(`Starting ${request.method?.toUpperCase()} Request - ${request.url} ${request.data ? 'with body: ' + JSON.stringify(request.data, null, 2) : ''}`)
   return request
 })
+
+axios.interceptors.request.use(config => {
+  config.headers.Authorization = `Bearer ${process.env.JWT}`
+  return config;
+});
     
 // axios.interceptors.response.use(response => {
 //   console.log('Response:', JSON.stringify(response, null, 2))
