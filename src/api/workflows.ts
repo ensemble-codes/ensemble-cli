@@ -48,6 +48,17 @@ export async function fetchWorkflow(id: string) {
   }
 }
 
+export async function fetchWorkflows() {
+  const url = `${baseUrl}/workflows/`;
+
+  try {
+    const response = await axios.get(url);
+    console.log(`Workflow: ${JSON.stringify(response.data)}`);
+  } catch (error) {
+    errorHandler(error);
+  }
+}
+
 
 export async function createWorkflowInstance(name: string, params: Map<string, string>) {
   const url = `${baseUrl}/workflows/instances/`;

@@ -1,5 +1,5 @@
 import { program, Argument } from 'commander';
-import { createWorkflow, fetchWorkflow, updateWorkflow } from '../api/workflows';
+import { createWorkflow, fetchWorkflow, fetchWorkflows, updateWorkflow } from '../api/workflows';
 
 const workflows = program.command('workflows')
   .description('displaying and starting workflows')
@@ -17,6 +17,13 @@ const workflows = program.command('workflows')
   .action((id, filepath) => {
     updateWorkflow(id, filepath)
   });
+
+  workflows.command('ls')
+  .description('Fetch your workflows')
+  .action(() => {
+    fetchWorkflows();
+  });
+
 
   workflows.command('fetch')
   .argument('--id <id>', 'workflow id')
