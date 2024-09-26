@@ -6,7 +6,7 @@ const { baseUrl }  = config;
 
 
 export async function createInstance(workflowId: string, params: Map<string, string>) {
-  const url = `${baseUrl}/workflows/instances/`;
+  const url = `${baseUrl}/instances/`;
   const data = {
     workflowId,
     params
@@ -21,10 +21,20 @@ export async function createInstance(workflowId: string, params: Map<string, str
 }
 
 export async function fetchInstance(id: string) {
-  const url = `${baseUrl}/workflows/instances/apply/${id}`;
+  const url = `${baseUrl}/instances/${id}`;
 
   try {
-    console.log('url:', url)
+      const response = await axios.get(url);
+      console.log('Success:', JSON.stringify(response.data));
+  } catch (error) {
+      errorHandler(error);
+  }
+}
+
+export async function fetchInstances() {
+  const url = `${baseUrl}/instances/`;
+
+  try {
       const response = await axios.get(url);
       console.log('Success:', JSON.stringify(response.data));
   } catch (error) {
@@ -33,7 +43,7 @@ export async function fetchInstance(id: string) {
 }
 
 export async function fetchInstanceByStatus(status: string) {
-  const url = `${baseUrl}/workflows/instances/status/${status}`;
+  const url = `${baseUrl}/instances/status/${status}`;
 
   try {
     console.log('Fetching instances with status:', status);
@@ -47,7 +57,7 @@ export async function fetchInstanceByStatus(status: string) {
 
 
 export async function fetchInstanceAndApply(id: string) {
-  const url = `${baseUrl}/workflows/instances/apply/${id}`;
+  const url = `${baseUrl}/instances/apply/${id}`;
 
   try {
     console.log('url:', url)
@@ -59,7 +69,7 @@ export async function fetchInstanceAndApply(id: string) {
 }
 
 export async function startInstance(instanceId: string) {
-  const url = `${baseUrl}/workflows/instances/start/${instanceId}`;
+  const url = `${baseUrl}/instances/start/${instanceId}`;
   try {
     const response = await axios.post(url);
     console.log('Instance started:', JSON.stringify(response.data));
@@ -69,7 +79,7 @@ export async function startInstance(instanceId: string) {
 }
 
 export async function stopInstance(instanceId: string) {
-  const url = `${baseUrl}/workflows/instances/stop/${instanceId}`;
+  const url = `${baseUrl}/instances/stop/${instanceId}`;
   try {
     const response = await axios.post(url);
     console.log('Instance stopped:', JSON.stringify(response.data));

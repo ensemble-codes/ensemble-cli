@@ -1,5 +1,5 @@
 import { program } from 'commander';
-import { createInstance, fetchInstanceAndApply, fetchInstanceByStatus, startInstance, stopInstance, } from '../api/instances';
+import { createInstance, fetchInstance, fetchInstances, fetchInstanceByStatus, startInstance, stopInstance, } from '../api/instances';
 
 
 const instances = program.command('instances')
@@ -18,7 +18,13 @@ const instances = program.command('instances')
   .description('fetching instance by id')
   .argument('<id>', 'instance id')
   .action((id) => {
-    fetchInstanceAndApply(id)
+    fetchInstance(id)
+  });
+
+  instances.command('ls')
+  .description('fetching your workflows instances')
+  .action(() => {
+    fetchInstances()
   });
 
   instances.command('status')

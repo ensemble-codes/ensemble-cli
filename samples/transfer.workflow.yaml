@@ -8,9 +8,9 @@
       contract: Token
       method: transfer
       arguments:
-        - to: $RECIVER_ADDRESS
+        - to: $RECEIVER_ADDRESS
         - amount: $PERIODIC_TRANSFER_AMOUNT
-        - network: $WORKFLOW_NETWORK
+        - network: sepolia
       trigger:
           name: daily_schedule
           type: periodic
@@ -19,4 +19,4 @@
     - name: Token
       address: $TOKEN_ADDRESS
       abi: erc20.abi
-      network: $WORKFLOW_NETWORK
+      network: sepolia
