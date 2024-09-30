@@ -5,16 +5,16 @@
     type: local
   steps:
     - name: transfer
+      network: sepolia
       contract: Token
       method: transfer
       arguments:
         - to: $RECEIVER_ADDRESS
         - amount: $PERIODIC_TRANSFER_AMOUNT
-        - network: sepolia
       trigger:
           name: daily_schedule
           type: periodic
-          interval: daily
+          interval: minute
   contracts:
     - name: Token
       address: $TOKEN_ADDRESS

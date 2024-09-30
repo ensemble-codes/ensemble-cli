@@ -39,15 +39,15 @@ The workfows are defined in a yaml files. Here's an example of a `samples/transf
   steps:
     - name: transfer
       contract: Token
+      network: sepolia
       method: transfer
       arguments:
         - to: $RECEIVER_ADDRESS
         - amount: $PERIODIC_TRANSFER_AMOUNT
-        - network: $WORKFLOW_NETWORK
       trigger:
           name: daily_schedule
           type: periodic
-          interval: daily
+          interval: minute
   contracts:
     - name: Token
       address: $TOKEN_ADDRESS
@@ -111,7 +111,7 @@ TOKEN_ADDRESS=0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238
 Now to finish the workflow configuration, we need to create a workflow instance. Workflow instance is the workflow adapted to user's use case. This is the command to create a workflow instance:
 
 ```bash
-./ensemble instances create $WORKFLOW_ID  -p "{\"WORKFLOW_WALLET\": \"$WORKFLOW_WALLET\", \"TOKEN_ADDRESS\": \"$TOKEN_ADDRESS\", \"PERIODIC_TRANSFER_AMOUNT\": \"1000000000000000000\"}"
+./ensemble instances create $WORKFLOW_ID  -p "{\"WORKFLOW_WALLET\": \"$WORKFLOW_WALLET\", \"RECEIVER_ADDRESS\": \"$RECEIVER_ADDRESS\", \"TOKEN_ADDRESS\": \"$TOKEN_ADDRESS\", \"PERIODIC_TRANSFER_AMOUNT\": \"100000\"}"
 WORKFLOW_INSTANCE_ID= #store here the received workflow instance id
 ```
 
