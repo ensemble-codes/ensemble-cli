@@ -16,7 +16,16 @@ export async function createWorkflow(filepath: string) {
   }
   try {
     const response = await axios.post(url, data);
-    console.log(`New workflow created, name: ${response.data.name}. id: ${response.data._id}`);
+    console.log(`New workflow created, id: ${response.data._id}`);
+    const formattedData = [response.data].map((workflow: any) => ({
+      _id: workflow._id,
+      name: workflow.name,
+      isPublic: workflow.isPublic,
+      lastUpdated: workflow.updatedAt,
+      createdAt: workflow.createdAt,
+      contracts: workflow.contracts.map((contract: any) => contract.name).join(', ')
+    }));
+    console.table(formattedData);
   } catch (error) {
     errorHandler(error);
   }
@@ -42,7 +51,15 @@ export async function fetchWorkflow(id: string) {
 
   try {
     const response = await axios.get(url);
-    console.log(`Workflow: ${JSON.stringify(response.data)}`);
+    const formattedData = [response.data].map((workflow: any) => ({
+      _id: workflow._id,
+      name: workflow.name,
+      isPublic: workflow.isPublic,
+      lastUpdated: workflow.updatedAt,
+      createdAt: workflow.createdAt,
+      contracts: workflow.contracts.map((contract: any) => contract.name).join(', ')
+    }));
+    console.table(formattedData);
   } catch (error) {
     errorHandler(error);
   }
@@ -53,7 +70,16 @@ export async function fetchWorkflows() {
 
   try {
     const response = await axios.get(url);
-    console.log(`Workflow: ${JSON.stringify(response.data)}`);
+    console.log(`Number of workflows returned: ${response.data.length}`);
+    // const response = await axios.get(url);
+    const formattedData = response.data.map((workflow: any) => ({
+      _id: workflow._id,
+      name: workflow.name,
+      isPublic: workflow.isPublic,
+      lastUpdated: workflow.updatedAt,
+      createdAt: workflow.createdAt
+    }));
+    console.table(formattedData);
   } catch (error) {
     errorHandler(error);
   }

@@ -25,7 +25,17 @@ export async function fetchInstance(id: string) {
 
   try {
       const response = await axios.get(url);
-      console.log('Success:', JSON.stringify(response.data));
+      // console.log('Success:', JSON.stringify(response.data));
+      const formattedData = [response.data].map((instance: any) => ({
+        _id: instance._id,
+        'workflowId': instance?.workflow?._id,
+        'workflowName': instance?.workflow?.name,
+        'status': instance.status,
+        'walletAddress': `${instance?.params["WORKFLOW_WALLET"].slice(0, 4)}...${instance?.params["WORKFLOW_WALLET"].slice(-4)}`,
+        'lastUpdated': instance.updatedAt,
+      }));
+      console.table(formattedData);
+
   } catch (error) {
       errorHandler(error);
   }
@@ -37,6 +47,16 @@ export async function fetchInstances() {
   try {
       const response = await axios.get(url);
       console.log('Success:', JSON.stringify(response.data));
+      console.log(response.data[0].params)
+      const formattedData = response.data.map((instance: any) => ({
+        _id: instance._id,
+        'workflowId': instance?.workflow?._id,
+        'workflowName': instance?.workflow?.name,
+        'status': instance.status,
+        'walletAddress': `${instance?.params["WORKFLOW_WALLET"].slice(0, 4)}...${instance?.params["WORKFLOW_WALLET"].slice(-4)}`,
+        'lastUpdated': instance.updatedAt,
+      }));
+      console.table(formattedData);
   } catch (error) {
       errorHandler(error);
   }
@@ -48,7 +68,15 @@ export async function fetchInstanceByStatus(status: string) {
   try {
     console.log('Fetching instances with status:', status);
     const response = await axios.get(url);
-    console.log('Success:', JSON.stringify(response.data));
+    console.log(`There is ${response.data.length} instances with status ${status}`);
+    const formattedData = response.data.map((instance: any) => ({
+      _id: instance._id,
+      'workflowId': instance.workflow._id,
+      'workflowName': instance.workflow.name,
+      'walletAddress': `${instance?.params["WORKFLOW_WALLET"].slice(0, 4)}...${instance?.params["WORKFLOW_WALLET"].slice(-4)}`,
+      'lastUpdated': instance.updatedAt
+    }));
+    console.table(formattedData);
   } catch (error) {
     errorHandler(error);
   }

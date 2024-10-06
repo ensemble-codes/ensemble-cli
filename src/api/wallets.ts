@@ -23,9 +23,10 @@ export async function createWallet() {
     const response = await axios.post(url, null, {
       headers: {
         Authorization: `Bearer ${process.env.JWT}`
-    }
+      }
     });
-    console.log('Success:', response.data);  
+    console.log('new wallet created');
+    console.table([response.data], ['address', 'type', 'createdAt', 'updatedAt']);  
   } catch (error) {
     errorHandler(error);
   }
@@ -35,7 +36,8 @@ export async function insertWallet(walletAddress: string) {
   const url = `${baseUrl}/wallets/${walletAddress}`;
   try {
     const response = await axios.post(url);
-    console.log('Wallet inserted:', response.data);
+    console.log('new wallet inserted');
+    console.table([response.data], ['address', 'type', 'createdAt', 'updatedAt']);
   } catch (error) {
     errorHandler(error);  
   }
@@ -46,7 +48,7 @@ export async function fetchWallet(walletAddress: string) {
 
   try {
     const response = await axios.get(url);
-    console.log('Wallet fetched:', response.data);
+    console.table([response.data], ['address', 'type', 'createdAt', 'updatedAt']);
   } catch (error) {
     errorHandler(error);
   }
@@ -54,10 +56,15 @@ export async function fetchWallet(walletAddress: string) {
 
 export  async function fetchWallets() {
   const url = `${baseUrl}/wallets/`;
-
   try {
       const response = await axios.get(url);
-      console.log('Success:', response.data);
+      console.log('Number of wallets returned:', response.data.length);
+      const formattedData = response.data.map((wallet: any) => ({
+        address: wallet.address,
+        type: wallet.type,
+        lastUsed: wallet.updatedAt
+      }));
+      console.table(formattedData);
   } catch (error) {
       errorHandler(error);
   }
