@@ -25,7 +25,6 @@ export async function fetchInstance(id: string) {
 
   try {
       const response = await axios.get(url);
-      // console.log('Success:', JSON.stringify(response.data));
       const formattedData = [response.data].map((instance: any) => ({
         _id: instance._id,
         'workflowId': instance?.workflow?._id,
@@ -35,6 +34,9 @@ export async function fetchInstance(id: string) {
         'lastUpdated': instance.updatedAt,
       }));
       console.table(formattedData);
+
+      console.log('workflow params:')
+      console.log(response.data.params)
 
   } catch (error) {
       errorHandler(error);
@@ -46,8 +48,8 @@ export async function fetchInstances() {
 
   try {
       const response = await axios.get(url);
-      console.log('Success:', JSON.stringify(response.data));
-      console.log(response.data[0].params)
+      // console.log('Success:', JSON.stringify(response.data));
+      
       const formattedData = response.data.map((instance: any) => ({
         _id: instance._id,
         'workflowId': instance?.workflow?._id,
