@@ -39,7 +39,7 @@ The workfows are defined in a yaml files. Here's an example of a `samples/transf
   steps:
     - name: transfer
       contract: Token
-      network: sepolia
+      network: $WORKFLOW_NETWORK
       method: transfer
       arguments:
         - to: $RECEIVER_ADDRESS
@@ -52,7 +52,7 @@ The workfows are defined in a yaml files. Here's an example of a `samples/transf
     - name: Token
       address: $TOKEN_ADDRESS
       abi: erc20.abi
-      network: sepolia
+      network: $WORKFLOW_NETWORK
 ```
 
 Studying the file we can see that it's a one step workflow, that will transfer an amount of tokens to a receiver address every day. It contains the following atributes:
@@ -111,7 +111,7 @@ TOKEN_ADDRESS=0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238
 Now to finish the workflow configuration, we need to create a workflow instance. Workflow instance is the workflow adapted to user's use case. This is the command to create a workflow instance:
 
 ```bash
-./ensemble instances create $WORKFLOW_ID  -p "{\"WORKFLOW_WALLET\": \"$WORKFLOW_WALLET\", \"RECEIVER_ADDRESS\": \"$RECEIVER_ADDRESS\", \"TOKEN_ADDRESS\": \"$TOKEN_ADDRESS\", \"PERIODIC_TRANSFER_AMOUNT\": \"100000\"}"
+./ensemble instances create $WORKFLOW_ID  -p "{\"WORKFLOW_WALLET\": \"$WORKFLOW_WALLET\", \"RECEIVER_ADDRESS\": \"$RECEIVER_ADDRESS\", \"TOKEN_ADDRESS\": \"$TOKEN_ADDRESS\", \"PERIODIC_TRANSFER_AMOUNT\": \"100000\", \"$WORKFLOW_NETWORK\": \"sepolia\"}"
 WORKFLOW_INSTANCE_ID= #store here the received workflow instance id
 ```
 
@@ -139,27 +139,9 @@ Validate the instance status:
 ./ensemble instances status running
 ```
 
-## More Workflow Examples
+## More Examples
 
-``` bash
-./ensemble.sh workflows create ./samples/dca.workflow.yaml
-WORKFLOW_ID= #put here the received workflow id
-```
+Read our manuals to get more examples and cheatsheets about working with Ensemble workflows.
 
-### FUSE
-
-``` bash
-./ensemble.sh instances create $WORKFLOW_ID  -p '{"BUY_TOKEN": "0x44661D7EfD4CAD7D8290Ebe704b747F267FB13C3", "BUY_AMOUNT": "100", "SELL_TOKEN": "0x44661D7EfD4CAD7D8290Ebe704b747F267FB13C3", "DEX_ADDRESS": "0x44661D7EfD4CAD7D8290Ebe704b747F267FB13C3", "WORKFLOW_WALLET": "0x44661D7EfD4CAD7D8290Ebe704b747F267FB13C3", "MIN_ALLOWANCE_AMOUNT": "10000"}'
-```
-
-### Sepolia
-
-``` bash
-./ensemble.sh instances create $WORKFLOW_ID  -p '{"BUY_TOKEN": "0x34d5Feb1C239714f17A295330426B4E8B44C90a8", "BUY_AMOUNT": "100", "SELL_TOKEN": "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14", "DEX_ADDRESS": "0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD", "WORKFLOW_WALLET": "0x2c37691967de1A1E4eE68ae4D745059720A6dB7F", "MIN_ALLOWANCE_AMOUNT": "10000"}'
-```
-
-### Base Sepolia
-
-``` bash
-./ensemble.sh instances create $WORKFLOW_ID  -p '{"BUY_TOKEN": "0x036CbD53842c5426634e7929541eC2318f3dCF7e", "SELL_AMOUNT": "100", "SELL_TOKEN": "0x4200000000000000000000000000000000000006", "DEX_ADDRESS": "0x050E797f3625EC8785265e1d9BDd4799b97528A1", "WORKFLOW_WALLET": "0x2c37691967de1A1E4eE68ae4D745059720A6dB7F", "MIN_ALLOWANCE_AMOUNT": "100000000000"}'
-```
+- [DCA](./manuals/dca.md)
+- [Transfer](./manuals/transfer.md)

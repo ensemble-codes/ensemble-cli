@@ -1,5 +1,5 @@
 import { program } from 'commander';
-import { createInstance, fetchInstance, fetchInstances, fetchInstanceByStatus, startInstance, stopInstance, } from '../api/instances';
+import { createInstance, fetchInstance, fetchInstances, fetchInstanceByStatus, startInstance, stopInstance, resetInstance } from '../api/instances';
 
 
 const instances = program.command('instances')
@@ -12,6 +12,12 @@ const instances = program.command('instances')
   .option('-p --params <params>', 'specify workflow params')
   .action((name, { params }) => {
     createInstance(name, JSON.parse(params));
+  });
+
+  instances.command('reset')
+  .argument('<id>', 'reset workflow instance by id')
+  .action((id) => {
+    resetInstance(id);
   });
 
   instances.command('fetch')

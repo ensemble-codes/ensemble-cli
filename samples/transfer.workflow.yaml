@@ -5,7 +5,7 @@
     type: local
   steps:
     - name: transfer
-      network: sepolia
+      network: $WORKFLOW_NETWORK
       contract: Token
       method: transfer
       arguments:
@@ -19,4 +19,4 @@
     - name: Token
       address: $TOKEN_ADDRESS
       abi: erc20.abi
-      network: sepolia
+      network: $WORKFLOW_NETWORK

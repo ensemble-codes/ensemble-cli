@@ -5,31 +5,17 @@
     type: local
   steps:
     - name: swap
-      module: dca
-      contract: DEX
+      module: dex
+      method: swap
+      network: $WORKFLOW_NETWORK
       arguments:
           tokenInAddress: $SELL_TOKEN
           tokenInAmount: $SELL_AMOUNT
           tokenOutAddress: $BUY_TOKEN
-          name: uniswap
-          network: base_sepolia
+          dexName: uniswap
+          network: $WORKFLOW_NETWORK
           receiverAddress: $WORKFLOW_WALLET
       trigger:
           name: daily_schedule
           type: periodic
           interval: daily
-      prerequisites:
-        - name: allowance
-          contract: SellToken
-          method: allowance
-          methodArgs:
-            - $WORKFLOW_WALLET
-            - $DEX_ADDRESS
-          condition:
-            op: greaterThan
-            value: $MIN_ALLOWANCE_AMOUNT
-  contracts:
-    - name: SellToken
-      address: $SELL_TOKEN
-      abi: erc20.abi
-      network: base_sepolia
