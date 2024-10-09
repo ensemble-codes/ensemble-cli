@@ -111,7 +111,7 @@ TOKEN_ADDRESS=0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238
 Now to finish the workflow configuration, we need to create a workflow instance. Workflow instance is the workflow adapted to user's use case. This is the command to create a workflow instance:
 
 ```bash
-./ensemble instances create $WORKFLOW_ID  -p "{\"WORKFLOW_WALLET\": \"$WORKFLOW_WALLET\", \"RECEIVER_ADDRESS\": \"$RECEIVER_ADDRESS\", \"TOKEN_ADDRESS\": \"$TOKEN_ADDRESS\", \"PERIODIC_TRANSFER_AMOUNT\": \"100000\", \"$WORKFLOW_NETWORK\": \"sepolia\"}"
+./ensemble instances create $WORKFLOW_ID  -p "{\"WORKFLOW_WALLET\": \"$WORKFLOW_WALLET\", \"RECEIVER_ADDRESS\": \"$RECEIVER_ADDRESS\", \"TOKEN_ADDRESS\": \"$TOKEN_ADDRESS\", \"PERIODIC_TRANSFER_AMOUNT\": \"100000\", \"WORKFLOW_NETWORK\": \"sepolia\"}"
 WORKFLOW_INSTANCE_ID= #store here the received workflow instance id
 ```
 
