@@ -83,7 +83,7 @@ export async function fetchInstances() {
         'workflowId': instance?.workflow?._id,
         'workflowName': instance?.workflow?.name,
         'status': instance.status,
-        'walletAddress': `${instance?.params["WORKFLOW_WALLET"].slice(0, 4)}...${instance?.params["WORKFLOW_WALLET"].slice(-4)}`,
+        'walletAddress': `${instance?.params["WORKFLOW_WALLET"]?.slice(0, 4)}...${instance?.params["WORKFLOW_WALLET"]?.slice(-4)}`,
         'lastUpdated': instance.updatedAt,
       }));
       console.table(formattedData);
