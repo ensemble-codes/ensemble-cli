@@ -1,0 +1,48 @@
+- name: dividends-distribution
+  version: 0.1
+  wallet:
+    address: $WORKFLOW_WALLET
+    type: local
+  steps:
+    - name: generate-snapshot
+      module: snapshot
+      method: build
+      network: $WORKFLOW_NETWORK
+      arguments:
+          tokenAddress: $SECURITY_TOKEN_ADDRESS
+          network: $WORKFLOW_NETWORK
+          startBlock: $START_BLOCK
+      trigger:
+          name: new-reward
+          type: event
+          contract: RewardsVault
+          event: RewardAdded
+          startBlock: $START_BLOCK
+    - name: approve-distribution
+      contract: RewardsVault
+      method: approveDistribution
+      network: $WORKFLOW_NETWORK
+      arguments:
+        - tokenHolders: &latest-balances
+        - tokenAmounts: &latest-holders
+        - rewardId: 0
+  contracts:
+    - name: RewardsVault
+      address: $REWARDS_VAULT_ADDRESS
+      abi: RewardsVault.abi
+      network: fuse
+  feeds:
+    - name: latest-holders
+      module: snapshot
+      method: getLatestHolders
+      network: $WORKFLOW_NETWORK
+      arguments:
+        tokenAddress: $SECURITY_TOKEN_ADDRESS
+        network: $WORKFLOW_NETWORK
+    - name: latest-balances
+      module: snapshot
+      method: getLatestBalances
+      network: $WORKFLOW_NETWORK
+      arguments:
+        tokenAddress: $SECURITY_TOKEN_ADDRESS
+        network: $WORKFLOW_NETWORK

@@ -120,7 +120,7 @@ WORKFLOW_INSTANCE_ID= #store here the received workflow instance id
 Now if you use run the service locally, you need to upload the ABIs used by the workflow.
 
 ```bash
- ./ensemble abi upload erc20.abi  ./samples/erc20.abi.json
+ ./ensemble abi upload erc20.abi  ./abis/erc20.abi.json
 ```
 
 ### Start the workflow
@@ -137,7 +137,7 @@ Validate the instance status:
 
 ```bash
 ./ensemble instances status running
-```
+``` 
 
 ## More Examples
 

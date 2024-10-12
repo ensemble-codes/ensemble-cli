@@ -6,8 +6,9 @@ const wallets = program.command('wallets')
 
 wallets.command('create')
   .description('generate new wallet')
-  .action(() => {
-    createWallet();
+  .option('-t, --type <type>', 'Wallet type')
+  .action(({ type }) => {
+    createWallet(type);
   });
 wallets.command('insert')
   .description('Insert a wallet with a specific address')

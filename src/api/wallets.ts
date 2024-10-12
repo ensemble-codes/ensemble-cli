@@ -17,10 +17,12 @@ export async function createWallets(numberOfWallets: number) {
     }
 }
 
-export async function createWallet() {
+export async function createWallet(walletType: string) {
   const url = `${baseUrl}/wallets/`;
   try {
-    const response = await axios.post(url, null, {
+    const response = await axios.post(url, {
+      type: walletType
+    }, {
       headers: {
         Authorization: `Bearer ${process.env.JWT}`
       }

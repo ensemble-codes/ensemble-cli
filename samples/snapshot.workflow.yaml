@@ -10,7 +10,9 @@
       network: $WORKFLOW_NETWORK
       arguments:
           tokenAddress: $TOKEN_ADDRESS
+          network: $WORKFLOW_NETWORK
+          startBlock: $START_BLOCK
       trigger:
           name: daily_schedule
           type: periodic
-          interval: daily
+          interval: minute
