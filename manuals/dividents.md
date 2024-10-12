@@ -70,8 +70,8 @@ It can support any ERC20 secutity token, but we suggest to use a token security 
       arguments:
         tokenAddress: $SECURITY_TOKEN_ADDRESS
         network: $WORKFLOW_NETWORK
-
 ```
+
 ## Configurations
 
 ### Sepolia
