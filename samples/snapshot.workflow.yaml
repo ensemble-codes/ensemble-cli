@@ -1,0 +1,18 @@
+- name: snapshot
+  version: 0.1
+  wallet:
+    address: $WORKFLOW_WALLET
+    type: local
+  steps:
+    - name: generate_snapshot
+      module: snapshot
+      method: build
+      network: $WORKFLOW_NETWORK
+      arguments:
+          tokenAddress: $TOKEN_ADDRESS
+          network: $WORKFLOW_NETWORK
+          startBlock: $START_BLOCK
+      trigger:
+          name: daily_schedule
+          type: periodic
+          interval: minute
