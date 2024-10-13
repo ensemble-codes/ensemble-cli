@@ -29,6 +29,8 @@
   contracts:
     - name: RewardsVault
       address: $REWARDS_VAULT_ADDRESS
+      type: circle
+      circleId: $CIRCLE_CONTRACT_ID
       abi: RewardsVault.abi
       network: fuse
   feeds:

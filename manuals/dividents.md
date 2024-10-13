@@ -1,4 +1,4 @@
-# Dividents Workflow
+# Dividends Workflow
 
 This documents explain dividents distribution workflow that can be done with Ensemble.
 
@@ -19,6 +19,59 @@ It can support any ERC20 secutity token, but we suggest to use a token security 
    2. Distribute the dividends to the wallets.
    3. Send the dividends to the wallets.
 
+## Workflow
+
+```yaml
+- name: dividends-distribution
+  version: 0.1
+  wallet:
+    address: $WORKFLOW_WALLET
+    type: local
+  steps:
+    - name: generate-snapshot
+      module: snapshot
+      method: build
+      network: $WORKFLOW_NETWORK
+      arguments:
+          tokenAddress: $SECURITY_TOKEN_ADDRESS
+          network: $WORKFLOW_NETWORK
+          startBlock: $START_BLOCK
+      trigger:
+          name: new-reward
+          type: event
+          contract: RewardsVault
+          event: RewardAdded
+          startBlock: $START_BLOCK
+    - name: approve-distribution
+      contract: RewardsVault
+      method: approveDistribution
+      network: $WORKFLOW_NETWORK
+      arguments:
+        - tokenHolders: &latest-balances
+        - tokenAmounts: &latest-holders
+        - rewardId: 0
+  contracts:
+    - name: RewardsVault
+      address: $REWARDS_VAULT_ADDRESS
+      abi: RewardsVault.abi
+      network: fuse
+  feeds:
+    - name: latest-holders
+      module: snapshot
+      method: getLatestHolders
+      network: $WORKFLOW_NETWORK
+      arguments:
+        tokenAddress: $SECURITY_TOKEN_ADDRESS
+        network: $WORKFLOW_NETWORK
+    - name: latest-balances
+      module: snapshot
+      method: getLatestBalances
+      network: $WORKFLOW_NETWORK
+      arguments:
+        tokenAddress: $SECURITY_TOKEN_ADDRESS
+        network: $WORKFLOW_NETWORK
+
+```
 ## Configurations
 
 ### Sepolia
@@ -37,7 +90,6 @@ Now if you use run the service locally, you need to upload the ABIs used by the 
 ```bash
  ./ensemble abi upload RewardsVault.abi  ./abis/RewardsVault.abi.json
 ```
-
 
 ## Create workflow
 
