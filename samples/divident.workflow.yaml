@@ -1,0 +1,21 @@
+- name: dca
+  version: 0.1
+  wallet:
+    address: $WORKFLOW_WALLET
+    type: local
+  steps:
+    - name: swap
+      module: dex
+      method: swap
+      network: $WORKFLOW_NETWORK
+      arguments:
+          tokenInAddress: $SELL_TOKEN
+          tokenInAmount: $SELL_AMOUNT
+          tokenOutAddress: $BUY_TOKEN
+          dexName: uniswap
+          network: $WORKFLOW_NETWORK
+          receiverAddress: $WORKFLOW_WALLET
+      trigger:
+          name: daily_schedule
+          type: periodic
+          interval: daily
