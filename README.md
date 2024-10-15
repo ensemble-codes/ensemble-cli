@@ -144,4 +144,4 @@ Validate the instance status:
 Read our manuals to get more examples and cheatsheets about working with Ensemble workflows.
 
 - [DCA](./manuals/dca.md)
-- [Transfer](./manuals/transfer.md)
+- [Transfer](./manuals/periodic_transfer.md)
