@@ -1,8 +1,6 @@
 - name: snapshot
-  version: 0.1
-  wallet:
-    address: $WORKFLOW_WALLET
-    type: local
+  version: 0.0.1
+  wallet: $WORKFLOW_WALLET
   steps:
     - name: generate_snapshot
       module: snapshot

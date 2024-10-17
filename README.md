@@ -32,10 +32,8 @@ The workfows are defined in a yaml files. Here's an example of a `samples/transf
 
 ```yaml
 - name: scheduled_transfer
-  version: 0.1
-  wallet:
-    address: $WORKFLOW_WALLET
-    type: local
+  version: 0.0.1
+  wallet: $WORKFLOW_WALLET
   steps:
     - name: transfer
       contract: Token
