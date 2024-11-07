@@ -40,6 +40,14 @@ PERIODIC_TRANSFER_AMOUNT=100000 # 10 cents
 WORKFLOW_NETWORK=avalanche_fuji
 ```
 
+### Arthera
+
+```bash
+TOKEN_ADDRESS=0xdc93F137EdfB14133686e90de9C845A7c7Fca3De # LESS
+PERIODIC_TRANSFER_AMOUNT=100000 # 10 cents
+WORKFLOW_NETWORK=arthera
+```
+
 ## Create workflow instance
 
 Now to finish the workflow configuration, we need to create a workflow instance. Workflow instance is the workflow adapted to user's use case. This is the command to create a workflow instance:
